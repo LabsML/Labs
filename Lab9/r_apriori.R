@@ -1,0 +1,8 @@
+setwd("YourPath/Lab9")
+library("arules", lib.loc="~/R/win-library/3.3")
+ptm = proc.time()
+data = read.transactions("retail.dat", format = "basket", sep=" ")
+rules = apriori(data,parameter=list(supp=.0015, conf=.8, minlen=2, maxlen=3000, target="rules"))
+print(proc.time() - ptm)
+result = inspect(rules)
+write.table(format(result, digits=3), file = "result.csv", sep = ";")
